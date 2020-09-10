@@ -21,7 +21,8 @@ extension FCM {
             struct Result: Codable {
                 var access_token: String
             }
-            let result = try res.content.decode(Result.self)
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(Result.self, from: res.body ?? ByteBuffer(string: ""))
             return result.access_token
         }
     }
